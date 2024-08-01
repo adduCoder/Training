@@ -4,6 +4,7 @@ public class CustomerDto {
     String firstName;
     String lastName;
     String address;
+    Integer managerId;
 
     public String getFirstName() {
         return firstName;
@@ -28,4 +29,13 @@ public class CustomerDto {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public Integer getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Integer managerId) {
+        this.managerId = managerId;
+    }
+
 }

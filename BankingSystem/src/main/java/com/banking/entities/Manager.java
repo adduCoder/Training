@@ -18,8 +18,6 @@ public class Manager {
     @Column(name = "lastName")
     private String lastName;
 
-    private List<Integer> customerList;
-
     public Integer getManagerId() {
         return managerId;
     }
@@ -44,24 +42,16 @@ public class Manager {
         this.lastName = lastName;
     }
 
-    public List<Integer> getCustomerList() {
-        return customerList;
-    }
-
-    public void setCustomerList(List<Integer> customerList) {
-        this.customerList = customerList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Manager manager)) return false;
-        return Objects.equals(managerId, manager.managerId) && Objects.equals(firstName, manager.firstName) && Objects.equals(lastName, manager.lastName) && Objects.equals(customerList, manager.customerList);
+        return Objects.equals(managerId, manager.managerId) && Objects.equals(firstName, manager.firstName) && Objects.equals(lastName, manager.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(managerId, firstName, lastName, customerList);
+        return Objects.hash(managerId, firstName, lastName);
     }
 
     @Override
@@ -70,7 +60,7 @@ public class Manager {
                 "managerId=" + managerId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", customerList=" + customerList +
-                '}';
+                 '}';
     }
+
 }

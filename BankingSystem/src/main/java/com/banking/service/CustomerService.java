@@ -43,13 +43,14 @@ public class CustomerService {
         return optionalCustomer.get();
     }
 
-    public Customer updateCustomer(Integer customerId,String firstName, String lastName,String address){
+    public Customer updateCustomer(Integer customerId,String firstName, String lastName,String address,Integer managerId){
         Optional<Customer> optionalCustomer=customerRepo.findById(customerId);
-        if(optionalCustomer.isEmpty())throw new NullPointerException();
+        if(optionalCustomer.isEmpty())return null;
         Customer customer=optionalCustomer.get();
         customer.setFirstName(firstName);
         customer.setLastName(lastName);
         customer.setAddress(address);
+        customer.setManagerId(managerId);
         return customerRepo.save(customer);
     }
 

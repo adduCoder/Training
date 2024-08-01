@@ -21,8 +21,7 @@ public class Customer {
     @Column(name = "address")
     public String address;
 
-    private List<Integer> accountList;
-
+    @Column(name = "managerId")
     private Integer managerId;
 
     public Integer getCustomerId() {
@@ -57,14 +56,6 @@ public class Customer {
         this.address = address;
     }
 
-    public List<Integer> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Integer> accountList) {
-        this.accountList = accountList;
-    }
-
     public Integer getManagerId() {
         return managerId;
     }
@@ -77,12 +68,12 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Customer customer)) return false;
-        return Objects.equals(customerId, customer.customerId) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(address, customer.address) && Objects.equals(accountList, customer.accountList) && Objects.equals(managerId, customer.managerId);
+        return Objects.equals(customerId, customer.customerId) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(address, customer.address) && Objects.equals(managerId, customer.managerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, firstName, lastName, address, accountList, managerId);
+        return Objects.hash(customerId, firstName, lastName, address, managerId);
     }
 
     @Override
@@ -92,8 +83,9 @@ public class Customer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
-                ", accountList=" + accountList +
+                ", accountList="  +
                 ", managerId=" + managerId +
                 '}';
     }
+    
 }

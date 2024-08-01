@@ -2,12 +2,13 @@ package com.banking.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "account")
-public class Account {
+public abstract class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
@@ -15,11 +16,20 @@ public class Account {
     @Column(name = "balance")
     private Double balance;
 
-    private List<Integer> transactionList;
-
     private Integer customerId;
 
-    private AccountType accountType;
+     @Enumerated(EnumType.STRING)
+     private AccountType accountType;
+
+    public Account(Integer accountId, Double balance, Integer customerId, AccountType accountType) {
+        this.accountId = accountId;
+        this.balance = balance;
+        this.customerId = customerId;
+        this.accountType = accountType;
+    }
+
+    public Account() {
+    }
 
     public Integer getAccountId() {
         return accountId;
@@ -35,14 +45,6 @@ public class Account {
 
     public void setBalance(Double balance) {
         this.balance = balance;
-    }
-
-    public List<Integer> getTransactionList() {
-        return transactionList;
-    }
-
-    public void setTransactionList(List<Integer> transactionList) {
-        this.transactionList = transactionList;
     }
 
     public Integer getCustomerId() {
@@ -65,12 +67,12 @@ public class Account {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Account account)) return false;
-        return Objects.equals(accountId, account.accountId) && Objects.equals(balance, account.balance) && Objects.equals(transactionList, account.transactionList) && Objects.equals(customerId, account.customerId) && accountType == account.accountType;
+        return Objects.equals(accountId, account.accountId) && Objects.equals(balance, account.balance)  && Objects.equals(customerId, account.customerId) && accountType == account.accountType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, balance, transactionList, customerId, accountType);
+        return Objects.hash(accountId, balance, customerId, accountType);
     }
 
     @Override
@@ -78,10 +80,11 @@ public class Account {
         return "Account{" +
                 "accountId=" + accountId +
                 ", balance=" + balance +
-                ", transactionList=" + transactionList +
+                ", transactionList="  +
                 ", customerId=" + customerId +
                 ", accountType=" + accountType +
                 '}';
     }
+
 }
 

@@ -17,6 +17,11 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @GetMapping
+    public void show(){
+        System.out.println("good evening");
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer){
         Customer addedCustomer=customerService.addCustomer(customer);
@@ -26,17 +31,19 @@ public class CustomerController {
     @GetMapping("/{id}")
     public ResponseEntity<Customer> viewCustomer(@PathVariable Integer id){
         Customer customer= customerService.viewCustomer(id);
+        if(customer==null)return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(customer,HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Integer id, @RequestBody CustomerDto customerDto){
-        Customer customer=customerService.updateCustomer(id,customerDto.getFirstName(),customerDto.getLastName(),customerDto.getAddress());
+        Customer customer=customerService.updateCustomer(id,customerDto.getFirstName(),customerDto.getLastName(),customerDto.getAddress(),customerDto.getManagerId());
+        if(customer==null)return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         ResponseEntity<Customer> customerResponseEntity = new ResponseEntity<>(customer, HttpStatus.OK);
         return customerResponseEntity;
     }
 
-    @GetMapping("/view")
+    @GetMapping("/viewAll")
     public ResponseEntity<List<Customer>> viewAllCustomer(){
         List<Customer> customerList=customerService.viewAllCustomers();
         ResponseEntity<List<Customer>> res = new ResponseEntity<>(customerList, HttpStatus.OK);
@@ -46,6 +53,8 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer id){
         Customer customer=customerService.deleteCustomer(id);
+        if(customer==null)
+             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         ResponseEntity<Customer> customerResponseEntity = new ResponseEntity<>(customer, HttpStatus.OK);
         return customerResponseEntity;
     }

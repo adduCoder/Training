@@ -1,6 +1,5 @@
 package com.banking.controller;
 
-import com.banking.DTO.CustomerDto;
 import com.banking.DTO.ManagerDto;
 import com.banking.entities.Customer;
 import com.banking.entities.Manager;
@@ -19,7 +18,12 @@ public class ManagerController {
     @Autowired
     private ManagerService managerService;
 
-    @PostMapping
+    @GetMapping
+    public void show(){
+        System.out.println("i am manager");
+    }
+
+    @PostMapping("/add")
     public ResponseEntity<Manager> addManager(@RequestBody Manager manager){
         Manager addedManager= managerService.addManager(manager);
         return  new ResponseEntity<>(addedManager, HttpStatus.CREATED);
@@ -34,6 +38,7 @@ public class ManagerController {
     @GetMapping("/{id}")
     public ResponseEntity<Manager> viewManager(@PathVariable Integer id){
         Manager manager=managerService.viewManager(id);
+        if(manager==null)return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(manager,HttpStatus.OK);
     }
 
@@ -46,6 +51,7 @@ public class ManagerController {
     @PutMapping("/{id}")
     public ResponseEntity<Manager> updateManager(@PathVariable Integer id, @RequestBody ManagerDto managerDto){
         Manager manager=managerService.updateManager(id,managerDto.getFirstName(),managerDto.getLastName());
+        if(manager==null)return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         ResponseEntity<Manager> managerResponseEntity = new ResponseEntity<>(manager, HttpStatus.OK);
         return managerResponseEntity;
     }

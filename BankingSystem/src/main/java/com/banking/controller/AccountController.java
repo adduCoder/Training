@@ -1,6 +1,7 @@
 package com.banking.controller;
 
 import com.banking.DTO.AccountDto;
+import com.banking.DTO.AmountDto;
 import com.banking.DTO.CustomerDto;
 import com.banking.entities.Account;
 import com.banking.service.AccountService;
@@ -27,4 +28,27 @@ public class AccountController {
         if(accountCreated==null)return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(accountCreated,HttpStatus.CREATED);
     }
+
+    @PostMapping("/credit/{accountId}")
+    public ResponseEntity<?> creditAmount(@PathVariable Integer accountId,@RequestBody AmountDto amountDto){
+        try{
+            accountService.credit(accountId,amountDto.getAmount());
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/debit/{accountId}")
+    public ResponseEntity<?> debitAmount(@PathVariable Integer accountId,@RequestBody AmountDto amountDto){
+        try{
+            accountService.debit(accountId,amountDto.getAmount());
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

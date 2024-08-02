@@ -21,15 +21,15 @@ public abstract class Account {
      @Enumerated(EnumType.STRING)
      private AccountType accountType;
 
-    public Account(Integer accountId, Double balance, Integer customerId, AccountType accountType) {
+     public Account(Integer accountId, Double balance, Integer customerId, AccountType accountType) {
         this.accountId = accountId;
         this.balance = balance;
         this.customerId = customerId;
         this.accountType = accountType;
-    }
+     }
 
-    public Account() {
-    }
+     public Account() {
+     }
 
     public Integer getAccountId() {
         return accountId;

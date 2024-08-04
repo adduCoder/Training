@@ -51,4 +51,18 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/viewAccount/{accountId}")
+    public ResponseEntity<?> viewAccount(@PathVariable Integer accountId){
+        Account account=accountService.viewAccount(accountId);
+        if(account==null)return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(account,HttpStatus.OK);
+    }
+
+    @GetMapping("/viewAll")
+    public ResponseEntity<?> viewAll(){
+        List<Account> accountList=accountService.getAllAccount();
+        if(accountList==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(accountList,HttpStatus.OK);
+    }
+
 }

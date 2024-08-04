@@ -9,3 +9,4 @@ public class BankingSystemApplication {
 		SpringApplication.run(BankingSystemApplication.class, args);
 	}
 }
+

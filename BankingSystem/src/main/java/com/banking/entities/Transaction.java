@@ -18,7 +18,11 @@ public class Transaction {
     @Column(name = "localDateTime")
     private LocalDateTime localDateTime;
 
+    @Column(name="accountId")
     private Integer accountId;
+
+    @Column(name="operation")
+    private String operation;
 
     public Integer getTransactionId() {
         return transactionId;
@@ -52,16 +56,27 @@ public class Transaction {
         this.accountId = accountId;
     }
 
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public Transaction() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Transaction that)) return false;
-        return Objects.equals(transactionId, that.transactionId) && Objects.equals(amount, that.amount) && Objects.equals(localDateTime, that.localDateTime) && Objects.equals(accountId, that.accountId);
+        return Objects.equals(transactionId, that.transactionId) && Objects.equals(amount, that.amount) && Objects.equals(localDateTime, that.localDateTime) && Objects.equals(accountId, that.accountId) && Objects.equals(operation, that.operation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, amount, localDateTime, accountId);
+        return Objects.hash(transactionId, amount, localDateTime, accountId, operation);
     }
 
     @Override
@@ -71,7 +86,7 @@ public class Transaction {
                 ", amount=" + amount +
                 ", localDateTime=" + localDateTime +
                 ", accountId=" + accountId +
+                ", operation='" + operation + '\'' +
                 '}';
     }
-
 }
